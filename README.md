@@ -1,2 +1,4 @@
 # FieldsAndWavesProject1
-Project for Fields and Waves course in Electrical Engineering Degree at TAU.
+Project for Fields and Waves course at TAU.
+
+Using Matplotlib in Python in order to plot electric and magnetic fields figures.
