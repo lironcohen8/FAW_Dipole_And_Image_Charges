@@ -26,10 +26,9 @@ def pointChargeFieldAt0(x, y):
         rSquared = x**2 + y**2
         k = 8.988 * (10**9)
         q = 63 * (10**-9)
-        point = (k*q)/rSquared
-        theta = np.arctan2(y,x);
-        resultX = point * np.cos(theta)
-        resultY = point * np.sin(theta)
+        denom = rSquared**1.5
+        resultX = (k*q*x)/denom
+        resultY = (k*q*y)/denom
         return (resultX, resultY)
     except ZeroDivisionError:
         return (0,0)
@@ -45,8 +44,6 @@ fig, ax = plt.subplots() #creating the figure
 
 ax.quiver(X,Y,u,v)
 
-#contour(X,Y)
-
 plt.show()
 
 """
@@ -57,27 +54,23 @@ def pointChargeFieldAtAB(x, y, a, b):
         rSquared = (x-a)**2 + (y-b)**2
         k = 8.988 * (10**9)
         q = 63 * (10**-9)
-        point = (k*q)/rSquared
-        theta = np.arctan2(y,x);
-        resultX = point * np.cos(theta)
-        resultY = point * np.sin(theta)
+        denom = rSquared**1.5
+        resultX = (k*q*(x-a))/denom
+        resultY = (k*q*(y-b))/denom
         return (resultX, resultY)
     except ZeroDivisionError:
         return (0,0)
 
-A,B = 3,4
-x = np.arange(-10-A,10+A,1) #setting a range for x values
-y = np.arange(-10-B,10+B,1) #setting a range for y values
+x = np.arange(-10,10,1) #setting a range for x values
+y = np.arange(-10,10,1) #setting a range for y values
 
 X,Y = np.meshgrid(x, y) #creating a grid for x and y values
 
-u,v = pointChargeFieldAtAB(X, Y, 1, 2)
+u,v = pointChargeFieldAtAB(X, Y, 3, 4)
 
 fig, ax = plt.subplots() #creating the figure
 
 ax.quiver(X,Y,u,v)
-
-#contour(X,Y)
 
 plt.show()
     
@@ -94,9 +87,9 @@ def electricDipoleField(x, y, d):
 """
 PART B 3-4
 """
-x = np.arange(-10,10,1) #setting a range for x values
-y = np.arange(-10,10,1) #setting a range for y values
 d = 2 * (10**-6)
+x = np.arange(-10*d,10*d,0.8*d) #setting a range for x values
+y = np.arange(-10*d,10*d,0.8*d) #setting a range for y values
 
 X,Y = np.meshgrid(x, y) #creating a grid for x and y values
 
@@ -105,8 +98,6 @@ u,v = electricDipoleField(X, Y, d)
 fig, ax = plt.subplots() #creating the figure
 
 ax.quiver(X,Y,u,v)
-
-#plt.contour(X,Y,Z)
 
 plt.show()
 
@@ -138,9 +129,17 @@ def pointChargePotential(r):
 """
 PART B 9
 """
-r = np.arange(-1,1,0.1) #setting a range for x values
 d = 2 * (10**-6)
-plt.plot(r, electricDipolePotential(r, d)) #creating the figure
+r = np.arange(0, 10*d, d) 
+
+plt.plot(r, electricDipolePotential(r, d), label="DipolePotential")
+plt.plot(r, pointChargePotential(r), label="pointChargePotential")
+
+plt.title("Potential graph for distance")
+plt.xlabel("r[m]")
+plt.ylabel("phi[V]")
+plt.legend()
+
 plt.show()
 
 """
@@ -161,9 +160,9 @@ def imageCharge(x, y):
     except ZeroDivisionError:
         return (0,0)
 
-
-x = np.arange(0,10,0.5) #setting a range for x values
-y = np.arange(0,10,0.5) #setting a range for y values
+d = 2 * (10**-6)
+x = np.arange(d,10*d,0.6*d) #setting a range for x values
+y = np.arange(d,10*d,0.6*d) #setting a range for y values
 
 X,Y = np.meshgrid(x, y) #creating a grid for x and y values
 
@@ -173,4 +172,24 @@ fig, ax = plt.subplots() #creating the figure
 
 ax.quiver(X,Y,u,v)
 
+plt.show()
+
+"""
+PART C 5
+"""
+def chargeDensity(y):
+    d = 2 * (10**-6)
+    q = 63 * (10**-9)
+    pi = 3.14
+    a = (q*d)/(2*pi)
+    bDenom = (d**2 + ((y+d)**2))**1.5
+    cDenom = (d**2 + ((y-d)**2))**1.5
+    return a*((1/bDenom)-(1/cDenom))
+
+"""
+PART C 6
+"""
+d = 2 * (10**-6)
+y = np.arange(0, 10*d, 0.7*d) #setting a range for x values
+plt.plot(y, chargeDensity(y)) #creating the figure
 plt.show()
