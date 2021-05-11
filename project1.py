@@ -33,6 +33,8 @@ def pointChargeFieldAt0(x, y):
     except ZeroDivisionError:
         return (0,0)
 
+k = 8.988 * (10**9)
+q = 63 * (10**-9)
 x = np.arange(-10,10,1) #setting a range for x values
 y = np.arange(-10,10,1) #setting a range for y values
 
@@ -43,6 +45,10 @@ u,v = pointChargeFieldAt0(X, Y)
 fig, ax = plt.subplots() #creating the figure
 
 ax.quiver(X,Y,u,v)
+
+potential = (k*q)/((X**2 + Y**2)**0.5)
+
+ax.contour(X, Y, potential)
 
 plt.show()
 
@@ -61,16 +67,23 @@ def pointChargeFieldAtAB(x, y, a, b):
     except ZeroDivisionError:
         return (0,0)
 
-x = np.arange(-10,10,1) #setting a range for x values
-y = np.arange(-10,10,1) #setting a range for y values
+x = np.arange(-10,13,1) #setting a range for x values
+y = np.arange(-10,13,1) #setting a range for y values
 
 X,Y = np.meshgrid(x, y) #creating a grid for x and y values
 
-u,v = pointChargeFieldAtAB(X, Y, 3, 4)
+A = 3
+B = 4
+
+u,v = pointChargeFieldAtAB(X, Y, A, B)
 
 fig, ax = plt.subplots() #creating the figure
 
 ax.quiver(X,Y,u,v)
+
+potential = (k*q)/(((X-A)**2 + (Y-B)**2)**0.5)
+
+ax.contour(X, Y, potential)
 
 plt.show()
     
@@ -88,8 +101,8 @@ def electricDipoleField(x, y, d):
 PART B 3-4
 """
 d = 2 * (10**-6)
-x = np.arange(-10*d,10*d,0.8*d) #setting a range for x values
-y = np.arange(-10*d,10*d,0.8*d) #setting a range for y values
+x = np.arange(-4*d,4*d,0.8*d) #setting a range for x values
+y = np.arange(-4*d,4*d,0.8*d) #setting a range for y values
 
 X,Y = np.meshgrid(x, y) #creating a grid for x and y values
 
@@ -99,12 +112,17 @@ fig, ax = plt.subplots() #creating the figure
 
 ax.quiver(X,Y,u,v)
 
+k = 8.988 * (10**9)
+q = 63 * (10**-9)
+
+p1 = (k*q)/(((X**2 + Y**2)**0.5) - d/2)
+p2 = (k*q)/(((X**2 + Y**2)**0.5) + d/2)
+potential = p1 - p2
+
+ax.contour(X, Y, potential)
+
 plt.show()
 
-"""
-PART B 5
-"""
-# contour(X,Y,Z) - potential lines
 
 """
 PART B 7
