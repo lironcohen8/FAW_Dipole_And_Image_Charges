@@ -14,13 +14,17 @@ v = 1 #setting the direction for y axis
 
 fig, ax = plt.subplots() #creating the figure
 
-ax.quiver(X,Y,u,v) 
+ax.quiver(X,Y,u,v)
+
+plt.title("Constant Electric Field")
+plt.xlabel("x[m]")
+plt.ylabel("y[m]")
 
 plt.show()
 
 """
 PART A 4-7
-"""
+"""   
 def pointChargeFieldAt0(x, y):
     try:
         rSquared = x**2 + y**2
@@ -49,6 +53,10 @@ ax.quiver(X,Y,u,v)
 potential = (k*q)/((X**2 + Y**2)**0.5)
 
 ax.contour(X, Y, potential)
+
+plt.title("Point Charge Field At 0")
+plt.xlabel("x[m]")
+plt.ylabel("y[m]")
 
 plt.show()
 
@@ -85,6 +93,10 @@ potential = (k*q)/(((X-A)**2 + (Y-B)**2)**0.5)
 
 ax.contour(X, Y, potential)
 
+plt.title("Point Charge Field At A,B")
+plt.xlabel("x[m]")
+plt.ylabel("y[m]")
+
 plt.show()
     
 """
@@ -101,8 +113,8 @@ def electricDipoleField(x, y, d):
 PART B 3-4
 """
 d = 2 * (10**-6)
-x = np.arange(-4*d,4*d,0.8*d) #setting a range for x values
-y = np.arange(-4*d,4*d,0.8*d) #setting a range for y values
+x = np.arange(-3*d,3*d,0.2*d) #setting a range for x values
+y = np.arange(-3*d,3*d,0.2*d) #setting a range for y values
 
 X,Y = np.meshgrid(x, y) #creating a grid for x and y values
 
@@ -110,7 +122,7 @@ u,v = electricDipoleField(X, Y, d)
 
 fig, ax = plt.subplots() #creating the figure
 
-ax.quiver(X,Y,u,v)
+ax.quiver(X,Y,u,v, scale = 1.2*(10**16))
 
 k = 8.988 * (10**9)
 q = 63 * (10**-9)
@@ -120,6 +132,10 @@ p2 = (k*q)/(((X**2 + Y**2)**0.5) + d/2)
 potential = p1 - p2
 
 ax.contour(X, Y, potential)
+
+plt.title("Electric Dipole Field")
+plt.xlabel("x[m]")
+plt.ylabel("y[m]")
 
 plt.show()
 
@@ -148,7 +164,7 @@ def pointChargePotential(r):
 PART B 9
 """
 d = 2 * (10**-6)
-r = np.arange(0, 10*d, d) 
+r = np.arange(-10*d, 10*d, d) 
 
 plt.plot(r, electricDipolePotential(r, d), label="DipolePotential")
 plt.plot(r, pointChargePotential(r), label="pointChargePotential")
@@ -190,6 +206,10 @@ fig, ax = plt.subplots() #creating the figure
 
 ax.quiver(X,Y,u,v)
 
+plt.title("Image Charge")
+plt.xlabel("x[m]")
+plt.ylabel("y[m]")
+
 plt.show()
 
 """
@@ -210,4 +230,7 @@ PART C 6
 d = 2 * (10**-6)
 y = np.arange(0, 10*d, 0.7*d) #setting a range for x values
 plt.plot(y, chargeDensity(y)) #creating the figure
+plt.title("Charge Density")
+plt.xlabel("y[m]")
+plt.ylabel("sigma[C/m^2]")
 plt.show()
