@@ -228,7 +228,7 @@ def chargeDensity(y):
 PART C 6
 """
 d = 2 * (10**-6)
-y = np.arange(0, 10*d, 0.7*d) #setting a range for x values
+y = np.arange(0, 10*d, 0.1*d) #setting a range for x values
 plt.plot(y, chargeDensity(y)) #creating the figure
 plt.title("Charge Density")
 plt.xlabel("y[m]")
