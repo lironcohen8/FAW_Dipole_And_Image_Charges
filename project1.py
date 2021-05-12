@@ -195,8 +195,8 @@ def imageCharge(x, y):
         return (0,0)
 
 d = 2 * (10**-6)
-x = np.arange(d,10*d,0.6*d) #setting a range for x values
-y = np.arange(d,10*d,0.6*d) #setting a range for y values
+x = np.arange(0,4*d,0.2*d) #setting a range for x values
+y = np.arange(0,4*d,0.2*d) #setting a range for y values
 
 X,Y = np.meshgrid(x, y) #creating a grid for x and y values
 
@@ -204,7 +204,7 @@ u,v = imageCharge(X, Y)
 
 fig, ax = plt.subplots() #creating the figure
 
-ax.quiver(X,Y,u,v)
+ax.quiver(X,Y,u,v, scale = 1.5*(10**16))
 
 plt.title("Image Charge")
 plt.xlabel("x[m]")
