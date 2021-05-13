@@ -4,8 +4,8 @@ import numpy as np
 """
 PART A 1-3
 """
-x = np.arange(-50,50,5) #setting a range for x values
-y = np.arange(-50,50,5) #setting a range for y values
+x = np.arange(-100,100,16) #setting a range for x values
+y = np.arange(-100,100,16) #setting a range for y values
 
 X,Y = np.meshgrid(x, y) #creating a grid for x and y values
 
@@ -35,7 +35,7 @@ def pointChargeFieldAt0(x, y):
         resultY = (k*q*y)/denom
         return (resultX, resultY)
     except ZeroDivisionError:
-        return (0,0)
+        return (np.infinity,np.infinity)
 
 k = 8.988 * (10**9)
 q = 63 * (10**-9)
@@ -73,7 +73,7 @@ def pointChargeFieldAtAB(x, y, a, b):
         resultY = (k*q*(y-b))/denom
         return (resultX, resultY)
     except ZeroDivisionError:
-        return (0,0)
+        return (np.infinity,np.infinity)
 
 x = np.arange(-10,13,1) #setting a range for x values
 y = np.arange(-10,13,1) #setting a range for y values
@@ -122,16 +122,17 @@ u,v = electricDipoleField(X, Y, d)
 
 fig, ax = plt.subplots() #creating the figure
 
-ax.quiver(X,Y,u,v, scale = 1.2*(10**16))
+ax.quiver(X,Y,u,v)
 
 k = 8.988 * (10**9)
 q = 63 * (10**-9)
 
-p1 = (k*q)/(((X**2 + Y**2)**0.5) - d/2)
-p2 = (k*q)/(((X**2 + Y**2)**0.5) + d/2)
-potential = p1 - p2
+r, theta = np.sqrt(X**2+Y**2), np.arctan2(Y,X)
+potential = (k*q*d*np.cos(theta))/(r**2)
+potLevels = [-8*(10**7), -6*(10**7), -4*(10**7),-2*(10**7), 0,
+             2*(10**7), 4*(10**7), 6*(10**7), 8*(10**7)]
 
-ax.contour(X, Y, potential)
+ax.contour(X, Y, potential, levels = potLevels)
 
 plt.title("Electric Dipole Field")
 plt.xlabel("x[m]")
@@ -158,7 +159,7 @@ def pointChargePotential(r):
         point = (k*q)/r
         return point
     except ZeroDivisionError:
-        return (0,0)
+        return (np.infinity,np.infinity)
 
 """
 PART B 9
@@ -192,7 +193,7 @@ def imageCharge(x, y):
         resultY = e1y - e2y + e3y - e4y
         return (resultX, resultY)
     except ZeroDivisionError:
-        return (0,0)
+        return (np.infinity,np.infinity)
 
 d = 2 * (10**-6)
 x = np.arange(0,4*d,0.2*d) #setting a range for x values
