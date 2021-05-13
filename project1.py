@@ -145,9 +145,12 @@ plt.show()
 PART B 7
 """
 def electricDipolePotential(r, d):
+    theta = 0
+    k = 8.988 * (10**9)
+    q = 63 * (10**-9)
     p1 = pointChargePotential(r - d/2)
     p2 = pointChargePotential(r + d/2)
-    return p1-p2
+    return p1 - p2
 
 """
 PART B 8
@@ -165,7 +168,7 @@ def pointChargePotential(r):
 PART B 9
 """
 d = 2 * (10**-6)
-r = np.arange(-10*d, 10*d, d) 
+r = np.arange(-8*d, 8*d, 0.1*d) 
 
 plt.plot(r, electricDipolePotential(r, d), label="DipolePotential")
 plt.plot(r, pointChargePotential(r), label="pointChargePotential")
