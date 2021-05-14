@@ -75,13 +75,13 @@ def pointChargeFieldAtAB(x, y, a, b):
     except ZeroDivisionError:
         return (np.infinity,np.infinity)
 
-x = np.arange(-10,13,1) #setting a range for x values
-y = np.arange(-10,13,1) #setting a range for y values
+x = np.arange(-5,15,1) #setting a range for x values
+y = np.arange(-5,15,1) #setting a range for y values
 
 X,Y = np.meshgrid(x, y) #creating a grid for x and y values
 
-A = 3
-B = 4
+A = 7
+B = 9
 
 u,v = pointChargeFieldAtAB(X, Y, A, B)
 
